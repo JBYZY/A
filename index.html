@@ -7,114 +7,114 @@
     <script type="text/python">
         # 在此处写你的 Python 代码
         while True:
-    name=input("请输入您的的姓名（真实姓名）：")
-    if name=="译文":
-        print("名字：张译文\n\t身高：170cm\n\t体重88斤\n\t所在地：滨州\n\tBMI指数=体重/身高**2=15.22491349481\n\t~~\n\t糟糕了你有点偏瘦哦！建议你多补充营养哦！\n\t下面还有惊喜！！")
-        import time
-        time.sleep(3)
-        import pygame
-        import math
-        import random
-        import sys
+            name=input("请输入您的的姓名（真实姓名）：")
+            if name=="译文":
+            print("名字：张译文\n\t身高：170cm\n\t体重88斤\n\t所在地：滨州\n\tBMI指数=体重/身高**2=15.22491349481\n\t~~\n\t糟糕了你有点偏瘦哦！建议你多补充营养哦！\n\t下面还有惊喜！！")
+            import time
+            time.sleep(3)
+            import pygame
+            import math
+            import random
+            import sys
 
-        # 初始化pygame
-        pygame.init()
+            # 初始化pygame
+            pygame.init()
 
-        # 设置窗口
-        width, height = 800, 600
-        screen = pygame.display.set_mode((width, height))
-        pygame.display.set_caption("炫酷爱心动画")
+            # 设置窗口
+            width, height = 800, 600
+            screen = pygame.display.set_mode((width, height))
+            pygame.display.set_caption("炫酷爱心动画")
 
-        # 颜色定义
-        RED = (255, 0, 0)
-        PINK = (255, 105, 180)
-        WHITE = (255, 255, 255)
-        COLORS = [(255, i, i) for i in range(0, 256, 5)]
-
-
-        # 粒子类
-        class Particle:
-            def __init__(self, x, y):
-                self.x = x
-                self.y = y
-                self.size = random.randint(2, 5)
-                self.color = random.choice(COLORS)
-                self.speed = random.uniform(0.5, 2)
-                self.angle = random.uniform(0, 2 * math.pi)
-
-            def update(self):
-                self.x += math.cos(self.angle) * self.speed
-                self.y += math.sin(self.angle) * self.speed
-                self.size -= 0.05
-                if self.size < 0:
-                    self.size = 0
-
-            def draw(self, surface):
-                if self.size > 0:
-                    pygame.draw.circle(surface, self.color, (int(self.x), int(self.y)), int(self.size))
+            # 颜色定义
+            RED = (255, 0, 0)
+            PINK = (255, 105, 180)
+            WHITE = (255, 255, 255)
+            COLORS = [(255, i, i) for i in range(0, 256, 5)]
 
 
-        # 创建爱心形状的点
-        def create_heart_particles(num, center_x, center_y, size):
-            particles = []
-            for _ in range(num):
-                t = random.uniform(0, 2 * math.pi)
-                # 爱心参数方程
-                x = 16 * math.sin(t) ** 3
-                y = 13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)
-                x = center_x + x * size
-                y = center_y - y * size
-                particles.append(Particle(x, y))
-            return particles
+            # 粒子类
+            class Particle:
+                def __init__(self, x, y):
+                    self.x = x
+                    self.y = y
+                    self.size = random.randint(2, 5)
+                    self.color = random.choice(COLORS)
+                    self.speed = random.uniform(0.5, 2)
+                    self.angle = random.uniform(0, 2 * math.pi)
+
+                def update(self):
+                    self.x += math.cos(self.angle) * self.speed
+                    self.y += math.sin(self.angle) * self.speed
+                    self.size -= 0.05
+                    if self.size < 0:
+                        self.size = 0
+
+                def draw(self, surface):
+                    if self.size > 0:
+                        pygame.draw.circle(surface, self.color, (int(self.x), int(self.y)), int(self.size))
 
 
-        # 主循环
-        def main():
-            clock = pygame.time.Clock()
-            particles = []
-            running = True
-            heart_size = 10
-
-            while running:
-                screen.fill((0, 0, 0))
-
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        running = False
-
-                # 在鼠标位置创建爱心粒子
-                if pygame.mouse.get_pressed()[0]:
-                    mouse_x, mouse_y = pygame.mouse.get_pos()
-                    particles.extend(create_heart_particles(20, mouse_x, mouse_y, heart_size))
-
-                # 自动在屏幕中央生成爱心
-                if random.random() < 0.05:
-                    particles.extend(create_heart_particles(600, width // 2, height // 2, heart_size))
-
-                # 更新和绘制所有粒子
-                for particle in particles[:]:
-                    particle.update()
-                    particle.draw(screen)
-                    if particle.size <= 0:
-                        particles.remove(particle)
-
-                # 显示文字
-                font = pygame.font.SysFont('simhei', 36)
-                text = font.render("点击屏幕创建爱心哦!宝宝", True, WHITE)
-                screen.blit(text, (width // 2 - text.get_width() // 2, 50))
-
-                pygame.display.flip()
-                clock.tick(60)
-
-            pygame.quit()
-            sys.exit()
+            # 创建爱心形状的点
+            def create_heart_particles(num, center_x, center_y, size):
+                particles = []
+                for _ in range(num):
+                    t = random.uniform(0, 2 * math.pi)
+                    # 爱心参数方程
+                    x = 16 * math.sin(t) ** 3
+                    y = 13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)
+                    x = center_x + x * size
+                    y = center_y - y * size
+                    particles.append(Particle(x, y))
+                return particles
 
 
-        if __name__ == "__main__":
-            main()
-        break
-    else:
-        print("代码错误！只需要输名字后两个字哦！宝宝")
+            # 主循环
+            def main():
+                clock = pygame.time.Clock()
+                particles = []
+                running = True
+                heart_size = 10
+
+                while running:
+                    screen.fill((0, 0, 0))
+
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            running = False
+
+                    # 在鼠标位置创建爱心粒子
+                    if pygame.mouse.get_pressed()[0]:
+                        mouse_x, mouse_y = pygame.mouse.get_pos()
+                        particles.extend(create_heart_particles(20, mouse_x, mouse_y, heart_size))
+
+                    # 自动在屏幕中央生成爱心
+                    if random.random() < 0.05:
+                        particles.extend(create_heart_particles(600, width // 2, height // 2, heart_size))
+
+                    # 更新和绘制所有粒子
+                    for particle in particles[:]:
+                        particle.update()
+                        particle.draw(screen)
+                        if particle.size <= 0:
+                            particles.remove(particle)
+
+                    # 显示文字
+                    font = pygame.font.SysFont('simhei', 36)
+                    text = font.render("点击屏幕创建爱心哦!宝宝", True, WHITE)
+                    screen.blit(text, (width // 2 - text.get_width() // 2, 50))
+
+                    pygame.display.flip()
+                    clock.tick(60)
+
+                pygame.quit()
+                sys.exit()
+
+
+            if __name__ == "__main__":
+                main()
+            break
+        else:
+            print("代码错误！只需要输名字后两个字哦！宝宝")
 
         # 绑定按钮点击事件
         document["run_button"].bind("click", run_python)
